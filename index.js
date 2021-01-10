@@ -61,5 +61,21 @@ function markIssue(target) {
     });
 }
 
-if (window.location.pathname === "/issues") markGithub(document, "issues");
-console.log(window.location.pathname);
+// function parseURL(path){
+//   path = path.split("/")
+//   if(path[3] != null){
+  
+// }
+// parseURL(window.location.pathname)
+
+
+
+
+if (window.location.pathname === "/issues"){
+  markGithub(document, "issues");
+} 
+else if(window.location.pathname.split("/")[3] === "issues"){
+  console.log(window.location.pathname)
+}
+
+

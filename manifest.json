@@ -5,7 +5,7 @@
   "description": "gitbid",
   "content_scripts": [
     {
-      "matches": ["https://github.com/issues"],
+      "matches": ["*://*.github.com/*"],
       "js": ["./index.js"],
       "css": ["style.css"]
     }
