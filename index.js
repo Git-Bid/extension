@@ -1,4 +1,5 @@
-const bountyData = '[{"issue":"https://github.com/AstutED/website/issues/4","bounty_amount":2000,"github":"https://github.com/henrymarks1%22"}]'
+sampledata = '[{"issue":"https://github.com/AstutED/website/issues/4","bounty_amount":12321,"github":"https://github.com/h"}]'
+
 
 
 function gitbid() {
@@ -24,11 +25,6 @@ function gitbid() {
   };
 }
 
-function compare(bounty){
-    bounty = JSON.parse(bounty)
-    console.log(bounty)
-}
-
 function createIndicator(type, value) {
   switch (type) {
     case "money":
@@ -50,15 +46,17 @@ function markGithub(document, route) {
         .getElementsByClassName("d-flex Box-row--drag-hide position-relative");
 
       for (const issue of issues) {
-
-        const issueData =
-          issue.getElementsByClassName("link-gray-dark v-align-middle no-underline h4 js-navigation-open")[0]
-            .href
-        
-        compare(bountyData)
-
+        const issueData = issue.getElementsByClassName(
+          "link-gray-dark v-align-middle no-underline h4 js-navigation-open"
+        )[0].href;
+        console.log(issueData)
+        sampledata = JSON.parse(sampledata)
+      if(sampledata[0].issue == issueData){
         issue.appendChild(createIndicator("money", issueData.value));
+
       }
+      }
+      
   }
 }
 
@@ -71,11 +69,8 @@ function markIssue(target) {
     });
 }
 
-if (window.location.pathname === "/issues"){
+if (window.location.pathname === "/issues") {
   markGithub(document, "issues");
-} 
-else if(window.location.pathname.split("/")[3] === "issues"){
-  console.log(window.location.pathname)
-} 
-
-
+} else if (window.location.pathname.split("/")[3] === "issues") {
+  console.log(window.location.pathname);
+}
