@@ -1,3 +1,6 @@
+const bountyData = '[{"issue":"https://github.com/AstutED/website/issues/4","bounty_amount":2000,"github":"https://github.com/henrymarks1%22"}]'
+
+
 function gitbid() {
   return {
     async getIssue(client, repo, issue) {
@@ -21,6 +24,11 @@ function gitbid() {
   };
 }
 
+function compare(bounty){
+    bounty = JSON.parse(bounty)
+    console.log(bounty)
+}
+
 function createIndicator(type, value) {
   switch (type) {
     case "money":
@@ -42,10 +50,12 @@ function markGithub(document, route) {
         .getElementsByClassName("d-flex Box-row--drag-hide position-relative");
 
       for (const issue of issues) {
-        const issueData = gitbid().getIssueFromLink(
-          issue.getElementsByClassName("v-align-middle muted-link h4 pr-1")[0]
+
+        const issueData =
+          issue.getElementsByClassName("link-gray-dark v-align-middle no-underline h4 js-navigation-open")[0]
             .href
-        );
+        
+        compare(bountyData)
 
         issue.appendChild(createIndicator("money", issueData.value));
       }
@@ -61,21 +71,11 @@ function markIssue(target) {
     });
 }
 
-// function parseURL(path){
-//   path = path.split("/")
-//   if(path[3] != null){
-  
-// }
-// parseURL(window.location.pathname)
-
-
-
-
 if (window.location.pathname === "/issues"){
   markGithub(document, "issues");
 } 
 else if(window.location.pathname.split("/")[3] === "issues"){
   console.log(window.location.pathname)
-}
+} 
 
 
