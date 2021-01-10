@@ -6,8 +6,12 @@ function gitbid() {
       );
     },
     async getIssueFromLink(link) {
-      // parse link first
-      return await fetch(`https://git.bid/issue/${link}`);
+      return await fetch(
+        `https://git.bid/issue/${link.replace("https://github.com/", "")}`
+      );
+    },
+    async getIssueFromPath(path) {
+      return await fetch(`https://git.bid/issue/${path}`);
     },
     async test() {
       return await fetch("http://localhost:3001/", {
@@ -20,22 +24,32 @@ function gitbid() {
 function createIndicator(type, value) {
   switch (type) {
     case "money":
-      document.createElement("div");
+      const moneyIndicator = document.createElement("div");
+      moneyIndicator.classList.add("moneyIndicator");
+      return moneyIndicator;
     case "fail":
-      document.createElement("div");
+      return document.createElement("div");
   }
 }
 
-function github(document) {
-  return {
-    markIssueInList(issueNum) {
-      // replace with real location of github issue location
-      return markIssue(document.getElementById());
-    },
-    markActiveIssue() {
-      return markIssue(document.getElementById());
-    },
-  };
+function markGithub(document, route) {
+  switch (route) {
+    case "issues":
+      const issues = document
+        .getElementsByClassName(
+          "js-navigation-container js-active-navigation-container"
+        )[0]
+        .getElementsByClassName("d-flex Box-row--drag-hide position-relative");
+
+      for (const issue of issues) {
+        const issueData = gitbid().getIssueFromLink(
+          issue.getElementsByClassName("v-align-middle muted-link h4 pr-1")[0]
+            .href
+        );
+
+        issue.appendChild(createIndicator("money", issueData.value));
+      }
+  }
 }
 
 function markIssue(target) {
@@ -46,3 +60,6 @@ function markIssue(target) {
       target.appendChild(createIndicator("fail"));
     });
 }
+
+if (window.location.pathname === "/issues") markGithub(document, "issues");
+console.log(window.location.pathname);

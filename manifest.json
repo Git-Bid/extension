@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "gitbid",
+  "version": "0.1.0",
+  "description": "gitbid",
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/issues"],
+      "js": ["./index.js"],
+      "css": ["style.css"]
+    }
+  ]
+}
